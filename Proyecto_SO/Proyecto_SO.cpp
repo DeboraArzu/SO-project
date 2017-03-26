@@ -8,6 +8,8 @@ int accion = 0;
 int ventana = 0;
 int procesos = 0;
 
+bool v1, v2, v3, v4, v5, v6 = false;
+
 Kernel *k = new Kernel();
 #pragma region variables
 #define add 1
@@ -35,7 +37,77 @@ bool verificarexistencia() {
 }
 
 bool verificarventana() {
-
+	bool creado = false;
+	switch (ventana)
+	{
+		case 1:
+			if (v1 == false)
+			{
+				v1 = true;
+			}
+			else
+			{
+				cout << "Ventana ya creada" << "\n";
+				creado = true;
+			}
+		break;
+		case 2:
+			if (v2 == false)
+			{
+				v2 = true;
+			}
+			else
+			{
+				cout << "Ventana ya creada" << "\n";
+				creado = true;
+			}
+			break;
+		case 3:
+			if (v3 == false)
+			{
+				v3 = true;
+			}
+			else
+			{
+				cout << "Ventana ya creada" << "\n";
+				creado = true;
+			}
+			break;
+		case 4:
+			if (v4 == false)
+			{
+				v4 = true;
+			}
+			else
+			{
+				cout << "Ventana ya creada" << "\n";
+				creado = true;
+			}
+			break;
+		case 5:
+			if (v5 == false)
+			{
+				v5 = true;
+			}
+			else
+			{
+				cout << "Ventana ya creada" << "\n";
+				creado = true;
+			}
+			break;
+		case 6:
+			if (v6 == false)
+			{
+				v6 = true;
+			}
+			else
+			{
+				cout << "Ventana ya creada" << "\n";
+				creado = true;
+			}
+			break;
+	}
+	return creado;
 }
 
 void acciones() {
@@ -44,12 +116,15 @@ void acciones() {
 	case add:
 		if (procesos !=6)
 		{
-			cout << "Ingrese el numero de ventana: ";
+			cout << "\n" << "Ingrese el numero de ventana: ";
 			cin >> ventana;
-			k->addprocess(ventana);
-			cout << "El proceso fue agregado";
-			procesos++;
-			cin.ignore();
+			if (!verificarventana())
+			{
+				k->addprocess(ventana);
+				cout << "El proceso fue agregado" << "\n";
+				procesos++;
+				cin.ignore();
+			}
 			menu();
 		}
 		break;
