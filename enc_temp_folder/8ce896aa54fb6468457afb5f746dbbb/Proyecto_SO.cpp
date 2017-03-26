@@ -5,15 +5,13 @@
 using namespace std;
 
 int accion = 0;
-int ventana = 0;
+int ventana;
 int procesos = 0;
-
 Kernel *k = new Kernel();
 #pragma region variables
 #define add 1
 #define remove 2
 #define quantum 3
-#define salir 4
 #pragma endregion
 
 
@@ -33,24 +31,17 @@ bool verificarexistencia() {
 	return true;
 }
 
-bool verificarventana() {
-
-}
-
 void acciones() {
 	switch (accion)
 	{
 	case add:
-		if (procesos !=6)
-		{
-			cout << "Ingrese el numero de ventana: ";
-			cin >> ventana;
-			k->addprocess(ventana);
-			cout << "El proceso fue agregado";
-			procesos++;
-			cin.ignore();
-			menu();
-		}
+		cout << "Ingrese el numero de ventana: ";
+		cin >> ventana;
+		k->addprocess(ventana);
+		cout << "El proceso fue agregado";
+		procesos++;
+		cin.ignore();
+		menu();
 		break;
 	case remove:
 		if (verificarexistencia() == true)
@@ -72,8 +63,6 @@ void acciones() {
 		k->changequantum(ventana, iquantum);
 		cin.ignore();
 		menu();
-		break;
-	case salir:
 		break;
 	}
 }
