@@ -17,6 +17,7 @@ Kernel *k = new Kernel();
 #pragma endregion
 
 
+
 void menu() {
 	cout << "\n" << "Que desea hacer? " << "\n";
 	cout << "1. Add" << ".\n" << "2. Remove" << ".\n" << "3. quantum" << ".\n" << "4. Salir ";
