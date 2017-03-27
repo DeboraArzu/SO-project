@@ -7,17 +7,18 @@ private:
 	int id;
 	
 public:
-	int status, *function, quantum;
+	int status, *function, quantum, clics;
 	ClassB *obj;
 
 	PCB(int id, int status)
 	{
 		this->id = id;
 		this->status = status;
-		this->quantum = 1000;
+		this->quantum = 2000;
+		this->clics = 0;
 	}
 
-	PCB(int id, int status, int *callback, int quantum)
+	/*PCB(int id, int status, int *callback, int quantum)
 	{
 		this->id = id;
 		this->status = status;
@@ -32,7 +33,7 @@ public:
 		this->status = status;
 		this->function = callback;
 		this->obj = obj;
-	}
+	}*/
 	~PCB()
 	{
 		this->id = this->status = 0;

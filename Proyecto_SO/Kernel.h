@@ -149,9 +149,43 @@ public:
 		return SUCCESSFUL;
 	}
 
+	int changequantum(int id, int q) {
+		int index = getProcessIndex(id);
+		this->pcb[index]->quantum = q;
+		return SUCCESSFUL;
+	}
+
+	int agregarclics(int id, int clic) {
+		int index = getProcessIndex(id);
+		int c = this->pcb[index]->clics;
+		c = c + clic;
+		this->pcb[index]->clics = c;
+		return SUCCESSFUL;
+	}
+
+	int killProcessAt(int index)
+	{
+		if (index >= MAX || index < 0)
+			return OUT_OF_RANGE;
+		if (this->pcb[index] == NULL)
+			return PROCESS_IS_NULL;
+		count--;
+		this->pcb[index]->~PCB();
+		this->pcb[index] = NULL;
+		return SUCCESSFUL;
+	}
+
+	int killProcessById(int id)
+	{
+		int index = getProcessIndex(id);
+		if (index < 0)
+			return PROCESS_NOT_FOUND;
+		killProcessAt(index);
+		return SUCCESSFUL;
+	}
 	//-------------------------------------------------------------------------------------------------------------
 
-	int addProcess(int *callback)
+	/*int addProcess(int *callback)
 	{
 		int result = validatenewprocess(count);
 		if (result != SUCCESSFUL)
@@ -195,9 +229,9 @@ public:
 		this->pcb[index] = pcb;
 		index++;
 		return SUCCESSFUL;
-	}
+	}*/
 
-	int runProcessAt(int index)
+	/*int runProcessAt(int index)
 	{
 		PCB *current = this->pcb[index];
 		int result = validateProccess(current);
@@ -226,32 +260,7 @@ public:
 		}
 		return SUCCESSFUL;
 	}
-
-	int killProcessAt(int index)
-	{
-		if (index >= MAX || index < 0)
-			return OUT_OF_RANGE;
-		if (this->pcb[index] == NULL)
-			return PROCESS_IS_NULL;
-		count--;
-		this->pcb[index]->~PCB();
-		this->pcb[index] = NULL;
-		return SUCCESSFUL;
-	}
-
-	int killProcessById(int id)
-	{
-		int index = getProcessIndex(id);
-		if (index < 0)
-			return PROCESS_NOT_FOUND;
-		killProcessAt(index);
-		return SUCCESSFUL;
-	}
-
-	int changequantum(int id, int q) {
-		int index = getProcessIndex(id);
-		this->pcb[index]->quantum = q;
-		return SUCCESSFUL;
-	}
+*/
+	
 };
 

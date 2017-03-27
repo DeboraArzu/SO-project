@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Kernel.h";
+#include "Kernel.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -15,14 +15,15 @@ Kernel *k = new Kernel();
 #define add 1
 #define remove 2
 #define quantum 3
-#define salir 4
+#define pause 4
+#define clear 5
+#define stats 6
+#define salir 7
 #pragma endregion
-
-
 
 void menu() {
 	cout << "\n" << "Que desea hacer? " << "\n";
-	cout << "1. Add" << ".\n" << "2. Remove" << ".\n" << "3. quantum" << ".\n" << "4. Salir ";
+	cout << "1. Add" << ".\n" << "2. Remove" << ".\n" << "3. quantum" << ".\n" << "4. pause" << ".\n" << "5. clear" << ".\n" << "6. stats" << ".\n" << "7. Salir " << "\n";
 	cin >> accion;
 }
 
@@ -149,7 +150,20 @@ void acciones() {
 		cin.ignore();
 		menu();
 		break;
+	case pause:
+		cout << "\n" << "Ingrese el numero de ventana: ";
+		cin >> ventana;
+		break;
+	case clear:
+		cout << "\n" << "Ingrese el numero de ventana: ";
+		cin >> ventana;
+		break;
+	case stats:
+		cout << "\n" << "Ingrese el numero de ventana: ";
+		cin >> ventana;
+		break;
 	case salir:
+		
 		break;
 	}
 }
@@ -162,6 +176,3 @@ int main()
 		acciones();
 	}
 }
-
-
-
