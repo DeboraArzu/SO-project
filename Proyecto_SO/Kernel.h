@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include <string>
+#include <ctime>
 #pragma once
 #include "PCB.h"
 #include "ClassB.h"
@@ -10,7 +11,7 @@ typedef int(*CallBack)(int);
 typedef int(ClassB::*CallBackB)(int);
 
 #pragma region define
-#define MAX 10 //La cantidad maxima de procesos
+#define MAX 6 //La cantidad maxima de procesos
 
 //DEFINICION DE CONSTANTES PARA ESTADOS DEL PROCESO
 //NOTA: No todas las constantes se utilizan por ahora
@@ -183,6 +184,37 @@ public:
 		killProcessAt(index);
 		return SUCCESSFUL;
 	}
+
+	int runAllProcesses()
+	{
+		for (int i = 0; i < MAX; i++)
+		{
+			runProcessAt(i);
+			killProcessAt(i);
+		}
+		return SUCCESSFUL;
+	}
+
+	int runProcessAt(int id) {
+		int index = getProcessIndex(id);
+		runProcessAt(index);
+	}
+	int runProcessAt(int index)
+	{
+		PCB *current = this->pcb[index];
+		int result = validateProccess(current);
+		if (result != SUCCESSFUL)
+			return result;
+		runProcess(current);
+		return SUCCESSFUL;
+	}
+
+	int runbyquantum(int id) {
+		int index = getProcessIndex(id);
+		PCB *current = this->pcb[index];
+
+
+	}
 	//-------------------------------------------------------------------------------------------------------------
 
 	/*int addProcess(int *callback)
@@ -231,15 +263,7 @@ public:
 		return SUCCESSFUL;
 	}*/
 
-	/*int runProcessAt(int index)
-	{
-		PCB *current = this->pcb[index];
-		int result = validateProccess(current);
-		if (result != SUCCESSFUL)
-			return result;
-		runProcess(current);
-		return SUCCESSFUL;
-	}
+	/*
 
 	int runProcessById(int id)
 	{
@@ -251,15 +275,7 @@ public:
 		return SUCCESSFUL;
 	}
 
-	int runAllProcesses()
-	{
-		for (int i = 0; i < MAX; i++)
-		{
-			runProcessAt(i);
-			killProcessAt(i);
-		}
-		return SUCCESSFUL;
-	}
+	
 */
 	
 };

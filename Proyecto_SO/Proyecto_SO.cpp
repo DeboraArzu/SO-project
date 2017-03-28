@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Kernel.h"
 #include <iostream>
+#include <cstdio>
+#include <ctime>
 #include <string>
 using namespace std;
 
@@ -25,6 +27,10 @@ void menu() {
 	cout << "\n" << "Que desea hacer? " << "\n";
 	cout << "1. Add" << ".\n" << "2. Remove" << ".\n" << "3. quantum" << ".\n" << "4. pause" << ".\n" << "5. clear" << ".\n" << "6. stats" << ".\n" << "7. Salir " << "\n";
 	cin >> accion;
+}
+
+void vCLOCK() {
+	
 }
 
 bool verificarexistencia() {
@@ -170,9 +176,10 @@ void acciones() {
 
 int main()
 {
-	menu();
+	vCLOCK();
+	/*menu();
 	while (accion != 4)
 	{
 		acciones();
-	}
+	}*/
 }
