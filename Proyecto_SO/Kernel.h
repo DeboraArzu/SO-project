@@ -8,7 +8,7 @@
 using namespace std;
 
 typedef int(*CallBack)(int);
-typedef int(ClassB::*CallBackB)(int);
+typedef int(Blink::*CallBackBlink)(int);
 
 #pragma region define
 #define MAX 6 //La cantidad maxima de procesos
@@ -30,6 +30,8 @@ typedef int(ClassB::*CallBackB)(int);
 #define UNAVAILABLE 1 //Posicion no disponible para agregar al proceso
 #define OVERFLOW 2 //La cantidad de procesos agregados ha sido alcanzada
 #define OUT_OF_RANGE 3 //El indice para agregar ha sido sobrepasado
+
+int CHANGE = 0;
 
 //DEFINICION DE CONSTANTES DEL RESULTADO DE CORRER UN PROCESO
 //TODO: Pueden existir mas casos, revisar. Quizas sea mejor retornar el valor de status en el pcb
@@ -66,7 +68,7 @@ private:
 		pcb->status = RUNNING;
 		if (pcb->obj != NULL)
 		{
-			CallBackB *cb = (CallBackB*)(function);
+			CallBackBlink *cb = (CallBackBlink*)(function);
 			result = (pcb->obj->**cb)(6);
 		}
 		else
@@ -119,6 +121,7 @@ private:
 				return i;
 		return -1;
 	}
+
 public:
 	PCB *pcb[MAX];
 	int count;
@@ -150,9 +153,22 @@ public:
 		return SUCCESSFUL;
 	}
 
+	int addProcess(int *callback, int id)
+	{
+		int index = getProcessIndex(id);
+		int result = validatenewprocess(index);
+		if (result != SUCCESSFUL)
+			return result;
+		PCB *pcb = new PCB(id, READY, callback);
+		this->pcb[index] = pcb;
+		count++;
+		return SUCCESSFUL;
+	}
+
 	int changequantum(int id, int q) {
 		int index = getProcessIndex(id);
 		this->pcb[index]->quantum = q;
+		CHANGE = 1;
 		return SUCCESSFUL;
 	}
 
@@ -189,8 +205,19 @@ public:
 	{
 		for (int i = 0; i < MAX; i++)
 		{
-			runProcessAt(i);
-			killProcessAt(i);
+			if (CHANGE != 1) //todos tienen el mismo quantum
+			{
+				runProcessAt(i);
+				killProcessAt(i);
+				int index = getProcessIndex(1);
+				int tempo = this->pcb[index]->quantum;
+				_sleep(tempo);
+			}
+			else
+			{
+				runbyquantum();
+			}
+
 		}
 		return SUCCESSFUL;
 	}
@@ -199,6 +226,7 @@ public:
 		int index = getProcessIndex(id);
 		runProcessAt(index);
 	}
+
 	int runProcessAt(int index)
 	{
 		PCB *current = this->pcb[index];
@@ -209,12 +237,22 @@ public:
 		return SUCCESSFUL;
 	}
 
-	int runbyquantum(int id) {
-		int index = getProcessIndex(id);
-		PCB *current = this->pcb[index];
-
-
+	int runbyquantum() {
+		for (size_t i = 0; i < MAX; i++)
+		{
+			int index = getProcessIndex(i);
+			int tempo = this->pcb[index]->quantum;
+			PCB *current = this->pcb[index];
+			int result = validateProccess(current);
+			if (result != SUCCESSFUL)
+				return result;
+			runProcess(current);
+			_sleep(tempo);
+		}
+		return SUCCESSFUL;
 	}
+
+	
 	//-------------------------------------------------------------------------------------------------------------
 
 	/*int addProcess(int *callback)
@@ -229,16 +267,7 @@ public:
 		return SUCCESSFUL;
 	}
 
-	int addProcess(int *callback, int index)
-	{
-		int result = validatenewprocess(index);
-		if (result != SUCCESSFUL)
-			return result;
-		PCB *pcb = new PCB(id_count++, READY, callback, quantum);
-		this->pcb[index] = pcb;
-		count++;
-		return SUCCESSFUL;
-	}
+	
 
 	int addProcess(int *callback, ClassB *obj)
 	{
@@ -261,7 +290,7 @@ public:
 		this->pcb[index] = pcb;
 		index++;
 		return SUCCESSFUL;
-	}*/
+
 
 	/*
 
@@ -275,8 +304,8 @@ public:
 		return SUCCESSFUL;
 	}
 
-	
+
 */
-	
+
 };
 

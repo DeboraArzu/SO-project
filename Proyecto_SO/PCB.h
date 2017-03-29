@@ -8,7 +8,7 @@ private:
 	
 public:
 	int status, *function, quantum, clics;
-	ClassB *obj;
+	Blink *obj;
 
 	PCB(int id, int status)
 	{
@@ -18,14 +18,16 @@ public:
 		this->clics = 0;
 	}
 
-	/*PCB(int id, int status, int *callback, int quantum)
+	PCB(int id, int status, int *callback)
 	{
 		this->id = id;
 		this->status = status;
+		this->quantum = 2000; //milisegundos
+		this->clics = 0;
 		this->function = callback;
-		this->quantum = 1000;
-		this->obj = NULL;
 	}
+
+	/*
 	PCB(int id, int status, int *callback, ClassB *obj)
 	{
 		this->id = id;

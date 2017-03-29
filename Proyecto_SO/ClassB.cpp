@@ -2,11 +2,11 @@
 #include "ClassB.h"
 
 
-ClassB::ClassB()
+Blink::Blink()
 {
 }
 
 
-ClassB::~ClassB()
+Blink::~Blink()
 {
 }

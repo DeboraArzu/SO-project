@@ -1,8 +1,9 @@
 #pragma once
-class ClassB
+class Blink
 {
 public:
-	ClassB();
-	~ClassB();
+	Blink();
+	~Blink();
+	//codigo para el blink
 };
 
