@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <ctime>
-#pragma once
 #include "PCB.h"
 #include "ClassB.h"
 using namespace std;
@@ -12,9 +11,6 @@ typedef int(Blink::*CallBackBlink)(int);
 
 #pragma region define
 #define MAX 6 //La cantidad maxima de procesos
-
-//DEFINICION DE CONSTANTES PARA ESTADOS DEL PROCESO
-//NOTA: No todas las constantes se utilizan por ahora
 #define RUNNING 1 //El proceso se esta ejecutando
 #define BLOCKED 2 //El proceso se encuentra bloqueado
 #define READY 3 //El proceso se encuentra listo para su ejecucion
@@ -34,7 +30,6 @@ typedef int(Blink::*CallBackBlink)(int);
 int CHANGE = 0;
 
 //DEFINICION DE CONSTANTES DEL RESULTADO DE CORRER UN PROCESO
-//TODO: Pueden existir mas casos, revisar. Quizas sea mejor retornar el valor de status en el pcb
 #define PROCESS_IS_NULL 1 //No hay proceso en esa posicion
 #define PROCESS_IS_DONE 2 //El proceso ha sido terminado y desea ejecutarse
 #define PROCESS_NOT_FOUND 3 //El proceso no ha sido encontrado
