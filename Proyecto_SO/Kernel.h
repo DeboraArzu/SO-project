@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include <string>
-#include <ctime>
+#include <chrono>
 #include "PCB.h"
 #include "ClassB.h"
 using namespace std;
@@ -27,7 +27,7 @@ typedef int(Blink::*CallBackBlink)(int);
 #define OVERFLOW 2 //La cantidad de procesos agregados ha sido alcanzada
 #define OUT_OF_RANGE 3 //El indice para agregar ha sido sobrepasado
 
-int CHANGE = 0;
+
 
 //DEFINICION DE CONSTANTES DEL RESULTADO DE CORRER UN PROCESO
 #define PROCESS_IS_NULL 1 //No hay proceso en esa posicion
@@ -118,6 +118,7 @@ private:
 	}
 
 public:
+	int cambio = 0;
 	PCB *pcb[MAX];
 	int count;
 	Kernel()
@@ -163,7 +164,7 @@ public:
 	int changequantum(int id, int q) {
 		int index = getProcessIndex(id);
 		this->pcb[index]->quantum = q;
-		CHANGE = 1;
+		cambio = 1;
 		return SUCCESSFUL;
 	}
 
@@ -200,13 +201,13 @@ public:
 	{
 		for (int i = 0; i < MAX; i++)
 		{
-			if (CHANGE != 1) //todos tienen el mismo quantum
+			if (cambio != 1) //todos tienen el mismo quantum
 			{
 				runProcessAt(i);
 				killProcessAt(i);
 				int index = getProcessIndex(1);
 				int tempo = this->pcb[index]->quantum;
-				_sleep(tempo);
+				//_sleep(tempo);
 			}
 			else
 			{
@@ -219,10 +220,10 @@ public:
 
 	int runProcessAt(int id) {
 		int index = getProcessIndex(id);
-		runProcessAt(index);
+		runProcessAti(index);
 	}
 
-	int runProcessAt(int index)
+	int runProcessAti(int index)
 	{
 		PCB *current = this->pcb[index];
 		int result = validateProccess(current);
@@ -242,12 +243,12 @@ public:
 			if (result != SUCCESSFUL)
 				return result;
 			runProcess(current);
-			_sleep(tempo);
+			//_sleep(tempo);
 		}
 		return SUCCESSFUL;
 	}
 
-	
+
 	//-------------------------------------------------------------------------------------------------------------
 
 	/*int addProcess(int *callback)
@@ -262,7 +263,7 @@ public:
 		return SUCCESSFUL;
 	}
 
-	
+
 
 	int addProcess(int *callback, ClassB *obj)
 	{
