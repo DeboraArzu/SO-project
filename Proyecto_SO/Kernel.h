@@ -248,7 +248,10 @@ public:
 		return SUCCESSFUL;
 	}
 
-
+	int getstatus(int i) {
+		int p = this->pcb[i]->getStatus();
+		return p;
+	}
 	//-------------------------------------------------------------------------------------------------------------
 
 	/*int addProcess(int *callback)

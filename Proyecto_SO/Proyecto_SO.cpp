@@ -12,7 +12,8 @@ using namespace std;
 int accion = 0;
 int ventana = 0;
 int procesos = 0;
-vector<string> tokens; // Create vector to hold our words
+int qua = 2000;
+std::vector<string> tokens; // Create vector to hold our words
 
 bool v1, v2, v3, v4, v5, v6 = false;
 
@@ -22,39 +23,47 @@ Kernel *k = new Kernel();
 #define remove 2
 #define quantum 3
 #define pause 4
-#define clear 5
+#define dclear 5
 #define stats 6
 #define salir 7
 #pragma endregion
 
 int tipo(string tipo) {
-	if (tipo == "add")
+//	int a = strcmp((char*)tipo.c_str(), "salir");
+	if (strcmp((char*)tipo.c_str(), "add") == 0)
 	{
-
+		istringstream(tokens[1]) >> ventana;
 		return add;
 	}
-	if (tipo == "remove")
+	else if (strcmp((char*)tipo.c_str(), "remove") == 0)
 	{
+		istringstream(tokens[1]) >> ventana;
 		return remove;
 	}
-	if (tipo == "pause")
+	else if (strcmp((char*)tipo.c_str(), "pause") == 0)
 	{
+		istringstream(tokens[1]) >> ventana;
 		return pause;
 	}
-	if (tipo == "quantum")
+	else if (strcmp((char*)tipo.c_str(), "quantum") == 0)
 	{
+		istringstream(tokens[1]) >> ventana;
+		istringstream(tokens[2]) >> qua;
 		return quantum;
 	}
-	if (tipo == "clear")
+	else if (strcmp((char*)tipo.c_str(), "clear") == 0)
 	{
-		return clear;
+		//clear screen and remove al process
+		return dclear;
 	}
-	if (tipo == "stats")
+	else if (strcmp((char*)tipo.c_str(), "stats") == 0)
 	{
+		istringstream(tokens[1]) >> ventana;
 		return stats;
 	}
-	if (tipo == "salir")
+	else if (strcmp((char*)tipo.c_str(), "salir") == 0)
 	{
+		exit(0);
 		return salir;
 	}
 }
@@ -155,53 +164,57 @@ void acciones() {
 				procesos++;
 				cin.ignore();
 			}
-
 		}
 		break;
 	case remove:
 		if (verificarexistencia() == true)
 		{
-			cout << "Ingrese el numero de ventana: ";
-			cin >> ventana;
+			k->killProcessById(ventana);
 			procesos--;
 			cin.ignore();
 
 		}
 		break;
 	case quantum:
-		verificarexistencia();
-		cout << "Ingrese el numero de ventana: ";
-		cin >> ventana;
-		cout << "Ingrese el valor del Quantum: ";
-		int iquantum;
-		cin >> iquantum;
-		k->changequantum(ventana, iquantum);
+		
+		k->changequantum(ventana, qua);
 		cin.ignore();
-
+		cout << "El quantum de los procesos de la ventana " << ventana << "han sido cambiados";
 		break;
 	case pause:
-		cout << "\n" << "Ingrese el numero de ventana: ";
-		cin >> ventana;
+		//pause
 		break;
-	case clear:
-		cout << "\n" << "Ingrese el numero de ventana: ";
-		cin >> ventana;
+	case dclear:
+		for (int i = 0; i < MAX; i++)
+		{
+			k->killProcessById(i);
+		}
+		cout << "procesos eliminados";
 		break;
 	case stats:
-		cout << "\n" << "Ingrese el numero de ventana: ";
-		cin >> ventana;
+		//stats
+		cout << "Estado del proceso";
+		cout << k->getstatus(ventana);
+		cout << "Tiempo que lleva corriendo";
+		break;
+	case salir:
+		exit(0);
 		break;
 	}
+}
+
+void limpiartokens() {
+	tokens.clear();
 }
 
 int main()
 {
 	while (accion != 7)
 	{
-		tokens.empty();
-		string dosomething;
+		tokens.clear();
+		string dosomething = "add add";
 		cout << "\n" << "Que desea hacer? " << "\n";
-		cin >> dosomething;
+		cin.getline((char*)dosomething.c_str(), 256);
 		string buf; // Have a buffer string
 		stringstream ss(dosomething); // Insert the string into a stream
 

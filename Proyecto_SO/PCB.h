@@ -51,5 +51,9 @@ public:
 	{
 		return this->id;
 	}
+	int getStatus()
+	{
+		return this->status;
+	}
 };
 
