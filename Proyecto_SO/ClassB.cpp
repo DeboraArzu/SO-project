@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "ClassB.h"
+#include "Blink.h"
 
 
 Blink::Blink()

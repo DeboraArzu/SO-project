@@ -1,5 +1,5 @@
 #pragma once
-#include "ClassB.h"
+#include "Blink.h"
 
 class PCB
 {

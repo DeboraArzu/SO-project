@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Kernel.h"
+#include "Blink.h";
 #include <iostream>
 #include <cstdio>
 #include <ctime>
@@ -18,6 +19,8 @@ std::vector<string> tokens; // Create vector to hold our words
 bool v1, v2, v3, v4, v5, v6 = false;
 
 Kernel *k = new Kernel();
+Blink *clase = new Blink();
+
 #pragma region variables
 #define add 1
 #define remove 2
@@ -29,7 +32,7 @@ Kernel *k = new Kernel();
 #pragma endregion
 
 int tipo(string tipo) {
-//	int a = strcmp((char*)tipo.c_str(), "salir");
+	//	int a = strcmp((char*)tipo.c_str(), "salir");
 	if (strcmp((char*)tipo.c_str(), "add") == 0)
 	{
 		istringstream(tokens[1]) >> ventana;
@@ -151,6 +154,13 @@ bool verificarventana() {
 	return creado;
 }
 
+static int function1(int param)
+{
+	cout << "Parametro: " << param << "\n";
+	cout << "Funcion: " << 1 << "\n";
+	return 1;
+}
+
 void acciones() {
 	switch (accion)
 	{
@@ -159,7 +169,7 @@ void acciones() {
 		{
 			if (!verificarventana())
 			{
-				k->addprocess(ventana);
+				k->addProcess(ventana);
 				cout << "El proceso fue agregado" << "\n";
 				procesos++;
 				cin.ignore();
@@ -176,7 +186,7 @@ void acciones() {
 		}
 		break;
 	case quantum:
-		
+
 		k->changequantum(ventana, qua);
 		cin.ignore();
 		cout << "El quantum de los procesos de la ventana " << ventana << "han sido cambiados";
@@ -207,17 +217,18 @@ void limpiartokens() {
 	tokens.clear();
 }
 
+
 int main()
+
 {
 	while (accion != 7)
 	{
 		tokens.clear();
-		string dosomething = "add add";
+		string dosomething = "so";
 		cout << "\n" << "Que desea hacer? " << "\n";
 		cin.getline((char*)dosomething.c_str(), 256);
 		string buf; // Have a buffer string
 		stringstream ss(dosomething); // Insert the string into a stream
-
 		while (ss >> buf) {
 			tokens.push_back(buf);
 		}

@@ -145,7 +145,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClassB.h" />
+    <ClInclude Include="Blink.h" />
     <ClInclude Include="Kernel.h" />
     <ClInclude Include="PCB.h" />
     <ClInclude Include="resource.h" />

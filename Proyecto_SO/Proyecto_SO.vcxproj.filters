@@ -30,10 +30,10 @@
     <ClInclude Include="PCB.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="ClassB.h">
+    <ClInclude Include="resource.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="Blink.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

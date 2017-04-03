@@ -3,7 +3,7 @@
 #include <string>
 #include <chrono>
 #include "PCB.h"
-#include "ClassB.h"
+#include "Blink.h"
 using namespace std;
 
 typedef int(*CallBack)(int);
@@ -138,7 +138,7 @@ public:
 		this->count = 0;
 	}
 	//------------------------------------------------------------------------------------------------------------
-	int addprocess(int id) {
+	int addProcess(int id) {
 		int result = validatenewprocess(count);
 		if (result != SUCCESSFUL)
 			return result;
@@ -165,6 +165,12 @@ public:
 		int index = getProcessIndex(id);
 		this->pcb[index]->quantum = q;
 		cambio = 1;
+		return SUCCESSFUL;
+	}
+
+	int pause(int id) {
+		int index = getProcessIndex(id);
+		this->pcb[index]->status = SUSPENDED;
 		return SUCCESSFUL;
 	}
 
@@ -205,9 +211,8 @@ public:
 			{
 				runProcessAt(i);
 				killProcessAt(i);
-				int index = getProcessIndex(1);
-				int tempo = this->pcb[index]->quantum;
-				//_sleep(tempo);
+				/*int index = getProcessIndex(0);
+				int tempo = this->pcb[index]->quantum;*/
 			}
 			else
 			{
@@ -221,6 +226,7 @@ public:
 	int runProcessAt(int id) {
 		int index = getProcessIndex(id);
 		runProcessAti(index);
+		return SUCCESSFUL;
 	}
 
 	int runProcessAti(int index)

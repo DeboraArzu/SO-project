@@ -5,5 +5,9 @@ public:
 	Blink();
 	~Blink();
 	//codigo para el blink
+
+	int blink() {
+		return 1;
+	}
 };
 
