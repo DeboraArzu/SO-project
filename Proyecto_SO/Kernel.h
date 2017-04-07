@@ -149,6 +149,7 @@ public:
 		return SUCCESSFUL;
 	}
 
+	//agregar proceso con el callback
 	int addProcess(int *callback, int id)
 	{
 		int index = getProcessIndex(id);
@@ -159,8 +160,9 @@ public:
 		this->pcb[index] = pcb;
 		count++;
 		return SUCCESSFUL;
-	}
+	}  
 
+	//cambio de quantum
 	int changequantum(int id, int q) {
 		int index = getProcessIndex(id);
 		this->pcb[index]->quantum = q;
@@ -168,12 +170,14 @@ public:
 		return SUCCESSFUL;
 	}
 
+	//pausar el proceso
 	int pause(int id) {
 		int index = getProcessIndex(id);
 		this->pcb[index]->status = SUSPENDED;
 		return SUCCESSFUL;
 	}
 
+	//guardar el numero de clics
 	int agregarclics(int id, int clic) {
 		int index = getProcessIndex(id);
 		int c = this->pcb[index]->clics;
@@ -194,6 +198,7 @@ public:
 		return SUCCESSFUL;
 	}
 
+	//matar proceso
 	int killProcessById(int id)
 	{
 		int index = getProcessIndex(id);
@@ -203,6 +208,7 @@ public:
 		return SUCCESSFUL;
 	}
 
+	//correr todos los proceso
 	int runAllProcesses()
 	{
 		for (int i = 0; i < MAX; i++)
@@ -239,6 +245,7 @@ public:
 		return SUCCESSFUL;
 	}
 
+	//corrrer procesos segun el valor del quatum
 	int runbyquantum() {
 		for (size_t i = 0; i < MAX; i++)
 		{
@@ -254,6 +261,7 @@ public:
 		return SUCCESSFUL;
 	}
 
+	//obtener el status
 	int getstatus(int i) {
 		int p = this->pcb[i]->getStatus();
 		return p;

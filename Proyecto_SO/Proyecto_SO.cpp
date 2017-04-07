@@ -71,6 +71,7 @@ int tipo(string tipo) {
 	}
 }
 
+//verifica que hayan ventanas creadas
 bool verificarexistencia() {
 	if (procesos == 0)
 	{
@@ -80,6 +81,7 @@ bool verificarexistencia() {
 	return true;
 }
 
+//verifica que la ventana exista
 bool verificarventana() {
 	bool creado = false;
 	switch (ventana)
@@ -156,9 +158,7 @@ bool verificarventana() {
 
 static int function1(int param)
 {
-	cout << "Parametro: " << param << "\n";
-	cout << "Funcion: " << 1 << "\n";
-	return 1;
+	//codigo para el blink
 }
 
 void acciones() {
@@ -213,28 +213,26 @@ void acciones() {
 	}
 }
 
-void limpiartokens() {
-	tokens.clear();
-}
-
-
 int main()
 
 {
 	while (accion != 7)
 	{
+		//se limpia el vector
 		tokens.clear();
 		string dosomething = "so";
 		cout << "\n" << "Que desea hacer? " << "\n";
 		cin.getline((char*)dosomething.c_str(), 256);
 		string buf; // Have a buffer string
+		//se separa la cadena por espacios
 		stringstream ss(dosomething); // Insert the string into a stream
 		while (ss >> buf) {
 			tokens.push_back(buf);
 		}
+
 		string acc = tokens[0];
-		accion = tipo(acc);
-		acciones();
+		accion = tipo(acc); //se obttien el numero de la accion
+		acciones(); //realiza la accion
 	}
 	cin.ignore();
 }
